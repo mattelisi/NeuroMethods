@@ -1,3 +1,7 @@
+% Code by Peter Scarfe taken from: https://peterscarfe.com/ptbtutorials.html 
+% (The page is highly recommended as contains many useful tutorials on 
+% creating visual stimuli with the psychtoolbox)
+
 % Clear the workspace
 close all;
 clear;
