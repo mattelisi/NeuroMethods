@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://moodle.royalholloway.ac.uk/course/view.php?id=14519">
-    <img src="./img/pop_fmri.png" alt="pop fMRI according to DALL-E" width=400>
+    <img src="./img/pop_fmri.png" alt="pop fMRI according to DALL-E" width=800>
   </a>
 
   <h3 align="center">PS5210 Applied Neuroscience Methods </h3>
