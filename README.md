@@ -3,7 +3,7 @@
     <img src="./img/pop_fmri.png" alt="pop fMRI according to DALL-E" width=800>
   </a>
 
-  <h3 align="center">PS5210 Applied Neuroscience Methods </h3>
+  <h3 align="center">Code repository for PS5210</h3>
 </p>
 
 
