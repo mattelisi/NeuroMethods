@@ -17,26 +17,29 @@
 
 ## Quick start
 
-Some text
+Most of the examples and code used in this reporsitory require matlab. To install matlab see instructions at [this link](https://intranet.royalholloway.ac.uk/students/help-support/it-services/faq/software/how-can-i-install-matlab.aspx) (for Royal Holloway students). 
 
-- Instruction 1
-- Instruction 2
-- Instruction 3
-
+In order to run the experimental protocols, you will also need the Psychtoolbox, which is a Matlab "toolbox" - that is a set of specific functions and scripts - that is designed for running behavioural experiments and afford a high degree of control over input and outputs. To install, follow the instruction at [this link](http://psychtoolbox.org/download.html).
 
 ## What's included
 
-Some text
 
 ```text
-folder1/
-└── folder2/
-    ├── folder3/
-    │   ├── file1
-    │   └── file2
-    └── folder4/
-        ├── file3
-        └── file4
+NeuroMethods/
+├── examples
+│   └── phase_scrambling
+├── experimental_tasks
+│   ├── double-drift-illusion
+│   │   └── functions
+│   ├── dual-decision-task
+│   │   ├── data
+│   │   └── functions
+│   ├── instrumental-learning
+│   │   ├── functions
+│   │   └── img
+│   └── Stroop-task
+├── img
+└── matlab-tutorial
 ```
 
 
