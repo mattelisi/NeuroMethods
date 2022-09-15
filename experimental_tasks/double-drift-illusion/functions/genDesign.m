@@ -120,16 +120,6 @@ design.nBlocks = 1;
 design.b(1).trial = trial;
 design.blockOrder = 1;
 
-% design.nBlocks = length(trial)/design.nTrialsInBlock;
-% design.blockOrder = 1:design.nBlocks;
-% 
-% b=1; beginB=b; endB=design.nTrialsInBlock;
-% 
-% for i = 1:design.nBlocks
-%     design.b(i).trial = trial(beginB:endB);
-%     beginB  = beginB + design.nTrialsInBlock;
-%     endB    = endB   + design.nTrialsInBlock;
-% end
 
 
 

@@ -22,7 +22,7 @@ visual.fixCkCol = visual.black;      % fixation check color
 visual.fixCol = 50;
 
 % target
-visual.tarSize = 101;
+visual.tarSize = 180 %101;
 if mod(visual.tarSize,2) == 0
     visual.tarSize = visual.tarSize+1;
 end

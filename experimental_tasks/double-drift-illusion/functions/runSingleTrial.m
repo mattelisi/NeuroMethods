@@ -16,12 +16,7 @@ FlushEvents('KeyDown');
 % define response keys
 leftkey = KbName('LeftArrow');
 rightkey = KbName('RightArrow');
-OKkey = 40; %KbName('Return');
-
-% keyisdown=0;
-% while ~keyisdown
-%     [keyisdown, secs, keycode] = KbCheck(-1);
-% end
+OKkey = 37; KbName('Return');
 
 HideCursor;
 
@@ -42,7 +37,7 @@ else
     m = framesControl(design, visual, td, nFrames, noiseimg, scr.fd);
 end
 for i=1:nFrames
-    motionTex(i)=Screen('MakeTexture', scr.main, m(:,:,i));
+    motionTex(i)=Screen('MakeTexture', scr.main, uint8(m(:,:,i)));
 end
 seq = 1:nFrames;
 sqShift = round(nFrames/4);
@@ -94,7 +89,7 @@ while ~ex_fg
         
         % check keyboard
         [keyisdown, secs, keycode] = KbCheck(-1);
-        if keyisdown && (keycode(leftkey) || keycode(rightkey) || keycode(OKkey))
+        if keyisdown && (keycode(leftkey) || keycode(rightkey) || any(keycode(OKkey)))
             if keycode(OKkey)
                 if trialPhase == 2 
                     ex_fg = 1;    % successful trial (response collected)
