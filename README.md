@@ -30,10 +30,15 @@ NeuroMethods/
 │   └── phase_scrambling
 ├── experimental_tasks
 │   ├── double-drift-illusion
+│   │   ├── data
 │   │   └── functions
 │   ├── dual-decision-task
 │   │   ├── data
 │   │   └── functions
+│   ├── emotion-recognition
+│   │   └── img
+│   │       ├── F
+│   │       └── M
 │   ├── instrumental-learning
 │   │   ├── functions
 │   │   └── img
