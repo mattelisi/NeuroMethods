@@ -27,30 +27,42 @@ In order to run the experimental protocols, you will also need the Psychtoolbox,
 ```text
 NeuroMethods/
 ├── examples
+│   ├── fourier_transform
+│   ├── PCA
 │   └── phase_scrambling
 ├── experimental_tasks
 │   ├── double-drift-illusion
-│   │   ├── data
-│   │   └── functions
 │   ├── dual-decision-task
-│   │   ├── data
-│   │   └── functions
 │   ├── emotion-recognition
-│   │   └── img
-│   │       ├── F
-│   │       └── M
 │   ├── instrumental-learning
-│   │   ├── functions
-│   │   └── img
+│   ├── README.md
 │   └── Stroop-task
+├── eyetracking_tasks
+│   ├── anti-saccade-task
+│   ├── image-classification
+│   ├── LICENSE
+│   └── pupil-math
 ├── img
-└── matlab-tutorial
+│   └── pop_fmri.png
+├── matlab-tutorial
+│   ├── Add.csv
+│   ├── Add.dat
+│   ├── data.csv
+│   ├── Matlab Style Guidelines Cheat Sheet.pdf
+│   ├── MatlabTutorial1.pdf
+│   ├── MatlabTutorial2.pdf
+│   ├── measureReactionTimes.m
+│   ├── plotReactionTimesData.m
+│   ├── reactionTimesDemo.m
+│   └── README.md
+└── README.md
+
 ```
 
 
 ## Contributing
 
-The easiest way of contributing code is via Github witha pull request. Alternatively get in touch via email with Matteo or Kyle.
+The easiest way of contributing code is via Github with a pull request. Alternatively get in touch via email with Matteo or Kyle.
 
 
 ## Creators

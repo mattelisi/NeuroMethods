@@ -10,6 +10,7 @@ found_im = mat2gray(double(imread('founders_bw.JPG')));
 matteo_im = mat2gray(double(imread('matteo_bw.JPG')));
 kyle_im = mat2gray(double(imread('kyle_bw.JPG')));
 house_im = mat2gray(double(imread('house_bw.JPG')));
+hildie_im = mat2gray(double(imread('hildie.png')));
 
 % approximately equalize the histogram of gray levels of both images
 % using histogram matching with target a composition of all images
