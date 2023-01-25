@@ -21,43 +21,6 @@ Most of the examples and code used in this reporsitory require matlab. To instal
 
 In order to run the experimental protocols, you will also need the Psychtoolbox, which is a Matlab "toolbox" - that is a set of specific functions and scripts - that is designed for running behavioural experiments and afford a high degree of control over input and outputs. To install, follow the instruction at [this link](http://psychtoolbox.org/download.html).
 
-## What's included
-
-
-```text
-NeuroMethods/
-├── examples
-│   ├── fourier_transform
-│   ├── PCA
-│   └── phase_scrambling
-├── experimental_tasks
-│   ├── double-drift-illusion
-│   ├── dual-decision-task
-│   ├── emotion-recognition
-│   ├── instrumental-learning
-│   ├── README.md
-│   └── Stroop-task
-├── eyetracking_tasks
-│   ├── anti-saccade-task
-│   ├── image-classification
-│   ├── LICENSE
-│   └── pupil-math
-├── img
-│   └── pop_fmri.png
-├── matlab-tutorial
-│   ├── Add.csv
-│   ├── Add.dat
-│   ├── data.csv
-│   ├── Matlab Style Guidelines Cheat Sheet.pdf
-│   ├── MatlabTutorial1.pdf
-│   ├── MatlabTutorial2.pdf
-│   ├── measureReactionTimes.m
-│   ├── plotReactionTimesData.m
-│   ├── reactionTimesDemo.m
-│   └── README.md
-└── README.md
-
-```
 
 
 ## Contributing
