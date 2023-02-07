@@ -1,6 +1,29 @@
 % script analysis behaviour
 clear all
 
+<<<<<<< HEAD
+=======
+%% visualize cumulative Gaussian function
+x = linspace(1, 21, 100);
+psy_fun = @(mu, sigma) (1/2).*(1 + erf((x-mu)./(sqrt(2)*sigma)) );
+
+% set parameters for plotting the function
+mu_value = 11;
+sigma_value = 1;
+
+% plot
+plot(x, psy_fun(mu_value, sigma_value),'-','Color',[1 0.2 0.0],'LineWidth',3);
+
+hold on
+
+% change mu, the function moves horizontally
+plot(x, psy_fun(mu_value-4, sigma_value),'-','Color',[0 0 1],'LineWidth',2)
+
+% increase sigma, the slope becomes shallower
+plot(x, psy_fun(mu_value, sigma_value+5),'--','Color',[1 0.2 0.0],'LineWidth',2)
+
+hold off
+>>>>>>> 92590089d7d2afb083cd10b461486893107ee30c
 
 %% load data
 opts = detectImportOptions('emo_recognition_1subject.csv');
@@ -45,6 +68,11 @@ xlim([min(stim),max(stim)]);
 ylim([0 1]);
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 92590089d7d2afb083cd10b461486893107ee30c
 %% fit psychometric function
 [mu, sigma, L] = fit_p_r(D.morph_level, D.resp_sad);
 
@@ -70,11 +98,16 @@ out.sigma
 
 % add CI for MU on plot
 hold on
+<<<<<<< HEAD
 line(out.mu.CI, [0.5,0.5],'Color',[1 0.2 0.0],'LineWidth',3);
+=======
+line(out.mu.CI, [0.5,0.5],'Color',[1 0.2 0.0],'LineWidth',7);
+>>>>>>> 92590089d7d2afb083cd10b461486893107ee30c
 hold off
 
 
 %% visualize the likelihood function
+<<<<<<< HEAD
 [X,Y] = meshgrid(linspace(5, 15,100),linspace(0.1, 5,100));
 F = arrayfun(@(xi,yi) exp(L_r(D.morph_level, D.resp_sad, xi, yi)), X, Y);
 surf(X,Y,F);
@@ -86,3 +119,32 @@ ylabel('sigma');
 
 
 
+=======
+[X,Y] = meshgrid(linspace(8, 11,50),linspace(0.5, 4,50));
+F = arrayfun(@(xi,yi) exp(L_r(D.morph_level, D.resp_sad, xi, yi)), X, Y);
+surf(X,Y,F);
+% shading flat
+xlabel('mu');
+zlabel('likelihood');
+ylabel('sigma');
+xlim([8,11]); 
+ylim([0.5,4]); 
+
+% change view
+view(2)
+shading interp
+hold on
+plot3(mu, sigma,max(F(:)),'ko')
+hold off
+
+%% exercises
+
+% 1) repeat with a noisy participants and see how the log-likelihood
+% function changes 
+D  = readtable('emo_recognition_1subject_less data.csv', opts);
+
+
+% 2) here is a participant that also make some random errors: how can the
+% approach above be adapted to take this into account?
+D  = readtable('emo_recognition_1subject_lapses.csv', opts);
+>>>>>>> 92590089d7d2afb083cd10b461486893107ee30c
