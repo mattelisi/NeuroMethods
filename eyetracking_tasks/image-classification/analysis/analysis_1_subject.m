@@ -1,4 +1,4 @@
-%
+% analysis of the image-classification task
 clear all
 
 addpath('../functions');
@@ -61,7 +61,8 @@ for i = 1:length(ds.FEVENT)
     
     % go through the list of events and extract relevant informations
     if ~isempty(ds.FEVENT(i).message)
-        
+       
+
         % parse string in different "words"
         sa = strread(ds.FEVENT(i).message,'%s');
         
@@ -85,6 +86,7 @@ for i = 1:length(ds.FEVENT)
         
         % data info
         if strcmp(sa(1),'TrialData')
+
            img_name = sa(5);
            trial_n_3 = str2double(sa(2));
            fake_image = str2double(sa(4));
@@ -150,7 +152,7 @@ for i = 1:length(ds.FEVENT)
 end
     
 %% plot raw data for 1 image
-t = 3;
+t = 5;
 
 if ds2.trial(t).fake_image ==1
     imgpath = ['../img/fake/', char(ds2.trial(t).img_name)];
@@ -177,7 +179,7 @@ hold off
 
 
 %% saccade analysis for 1 image
-t = 5;
+t = 3;
 
 % saccade algorithm parameters
 SAMPRATE  = 1000;       % Eyetracker sampling rate 
