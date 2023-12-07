@@ -34,7 +34,7 @@ im_counter = 0;
 commandwindow;
 home;
 
-addpath('./functions');
+addpath('functions');
 
 % Setup PTB with some default values
 PsychDefaultSetup(2);

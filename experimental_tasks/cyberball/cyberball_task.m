@@ -24,8 +24,8 @@ grey = white / 2;
 black = BlackIndex(screenNumber);
 
 % Open the screen
-% [window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, [], 32, 2);
-[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, [0     0   640  480], 32, 2);
+[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, [], 32, 2);
+%[window, windowRect] = PsychImaging('OpenWindow', screenNumber, grey, [0     0   640  480], 32, 2);
 
 
 % Flip to clear
