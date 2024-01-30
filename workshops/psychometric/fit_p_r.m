@@ -1,10 +1,7 @@
 function [mu, sigma, L] = fit_p_r(x,r, mu0, sigma0)
 %
 % fit cumulative Gaussian psychometric function
-<<<<<<< HEAD
-=======
 % Matteo Lisi 2022
->>>>>>> 92590089d7d2afb083cd10b461486893107ee30c
 %
 
 % initial parameters
@@ -15,22 +12,6 @@ par0 = [mu0, sigma0];
 % options
 options = optimset('Display', 'off') ;
 
-<<<<<<< HEAD
-% % do optimization
-% % the function L_r() is positive
-% fun = @(par) -L_r(x, r, par(1), par(2));
-% 
-% % this command do the optimization 
-% [par, L] = fminsearch(fun, [mu0, sigma0], options);
-% 
-% % output parameters & loglikelihood
-% mu = par(1); 
-% sigma = par(2);
-% L = -L;
-
-
-=======
->>>>>>> 92590089d7d2afb083cd10b461486893107ee30c
 % create 'objective' function to be minimized (the negative of the log-likelihood)
 % I use an anonymous function (https://uk.mathworks.com/help/matlab/matlab_prog/anonymous-functions.html)
 % note also that I exponentiate par(2), that is the sigma, to make sure the value given as input to 
