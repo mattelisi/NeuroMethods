@@ -88,13 +88,12 @@ line([alpha, alpha],[0,0.5],'Color',[1 0.2 0.0],'LineWidth',1.5,'LineStyle','--'
 hold off
 
 
-
 %% bootstrap
-[out] = bootstrapCI_psy_fun(alpha, beta, D.diff, 1000);
+[out] = bootstrapCI_psy_fun(alpha, beta, D.diff, 10000);
 out.alpha
 out.beta
 
-% add CI for MU on plot
+% add CI for alpha on plot
 hold on
 line(out.alpha.CI, [0.5,0.5],'Color',[1 0.2 0.0],'LineWidth',7);
 hold off
@@ -109,12 +108,12 @@ xlabel('alpha');
 zlabel('likelihood');
 ylabel('beta');
 
-% [X,Y] = meshgrid(linspace(5, 15,100),linspace(-0.5, 1,100));
-% F = arrayfun(@(xi,yi) L_r(D.diff, D.choose_delayed, xi, yi), X, Y);
-% surf(X,Y,F);
-% xlabel('alpha');
-% zlabel('log-likelihood');
-% ylabel('beta');
+[X,Y] = meshgrid(linspace(5, 15,100),linspace(-0.5, 1,100));
+F = arrayfun(@(xi,yi) L_r(D.diff, D.choose_delayed, xi, yi), X, Y);
+surf(X,Y,F);
+xlabel('alpha');
+zlabel('log-likelihood');
+ylabel('beta');
 
 % change view
 view(2)
@@ -131,4 +130,30 @@ hold off
 opts = detectImportOptions('discounting_all.csv');
 preview('discounting_all.csv',opts)
 D_all  = readtable('discounting_all.csv', opts);
+
+D_all.diff = D_all.delayed - D_all.immediate;
+
+% get number of participants
+N_sj = length(unique(D_all.subjectID));
+ID_sj = unique(D_all.subjectID);
+
+alpha_all = NaN(N_sj, 1);
+beta_all = NaN(N_sj, 1);
+patient = NaN(N_sj, 1);
+
+for i = 1:length(ID_sj)
+     
+    x = D_all.diff(strcmp(D_all.subjectID,ID_sj(i)));
+    y = D_all.choose_delayed(strcmp(D_all.subjectID,ID_sj(i)));
+
+    [alpha_i, beta_i, ~] = fit_p_r(x,y);
+    
+    alpha_all(i) = alpha_i;
+    beta_all(i) = beta_i;
+
+    group_i = unique(D_all.group(strcmp(D_all.subjectID,ID_sj(i))));
+    patient(i) = strcmp(group_i, 'PD');
+end
+
+
 

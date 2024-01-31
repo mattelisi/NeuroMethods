@@ -23,10 +23,12 @@ for i=1:nSim
     boot_beta(i) = beta_i;
 end
 
-out.alpha.CI = prctile(boot_alpha,[5,95]);
+out.alpha.CI = prctile(boot_alpha,[2.5,97.5]);
 out.alpha.SE = std(boot_alpha);
+out.alpha.boot_alpha = boot_alpha;
 
-out.beta.CI = prctile(boot_beta,[5,95]);
+out.beta.CI = prctile(boot_beta,[2.5,97.5]);
 out.beta.SE = std(boot_beta);
+out.beta.boot_beta = boot_beta;
 
 end
