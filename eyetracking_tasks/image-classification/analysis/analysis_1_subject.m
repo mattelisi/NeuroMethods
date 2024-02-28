@@ -20,13 +20,13 @@ ppd = va2pix(1,scr); % pixel per degree
 
 %% import file
 % location of raw data file
-raw_data = '../data/S2301.edf';
+raw_data = '../data/S1.edf';
 
 % system('edf2asc ../data/S1.edf -s -miss -1.0')
 
 % load eye movement file
 ds = edfmex(raw_data); % ,'-miss -1.0'
-save('S2301_edfstruct.mat', 'ds');
+save('S1_edfstruct.mat', 'ds');
 
 % see the content of the data
 ds.FSAMPLE
@@ -35,7 +35,9 @@ ds.FEVENT.message
 % how many trials? here are the index of img onsets for each trial
 find(strcmp({ds.FEVENT.message}, 'EVENT_FixationDot')==1)
 
-find(strcmp({ds.FEVENT.message}, 'TrialData')==1)
+sum(strcmp({ds.FEVENT.message}, 'EVENT_FixationDot'))
+
+ds.FEVENT(62).message
 
 %% prepare data
 
@@ -43,9 +45,9 @@ find(strcmp({ds.FEVENT.message}, 'TrialData')==1)
 % 0=left 1=right (add 1 for indexing below)
 eye_tracked = 1 + mode([ds.FEVENT.eye]);
 
-% scatter(ds.FSAMPLE.gx(2,:),ds.FSAMPLE.gy(2,:))
-% xlim([0 scr.xres])
-% ylim([0 scr.yres])
+scatter(ds.FSAMPLE.gx(2,:),ds.FSAMPLE.gy(2,:))
+xlim([0 scr.xres])
+ylim([0 scr.yres])
 
 % initialize 
 trial_n = NaN;
@@ -160,32 +162,9 @@ for i = 1:length(ds.FEVENT)
 end
     
 %% plot raw data for 1 image
-% t = 1;
-% 
-% if ds2.trial(t).fake_image ==1
-%     imgpath = ['../img/fake/', char(ds2.trial(t).img_name)];
-% else
-%     imgpath = ['../img/real/', char(ds2.trial(t).img_name)];
-% end
-% 
-% imshow(imgpath);
-% C = imread(imgpath);
-% img_rect = ds2.trial(t).imgRect;
-% x_scaling = size(C,2)/(img_rect(3) - img_rect(1));
-% y_scaling = size(C,1)/(img_rect(4) - img_rect(2));
-% 
-% axis on
-% hold on;
-% 
-% % plot gaze position
-% XY = [x_scaling*(ds2.trial(t).eye_x - (img_rect(1)-1)); ...
-%     y_scaling*(ds2.trial(t).eye_y - (img_rect(2)-1))]';
-% 
-% plot(XY(:,1), XY(:,2), 'b', 'MarkerSize', 30, 'LineWidth', 2);
-% 
-% hold off
 
-t = 1;
+% select a trial
+t = 2;
 
 % see image
 if ds2.trial(t).fake_image ==1
@@ -206,7 +185,7 @@ subplot(1,3,3);
 plot(ds2.trial(t).timestamp, XY,'LineWidth', 2)
 
 %% saccade analysis for 1 image
-t = 5;
+t = 3;
 
 % saccade algorithm parameters
 SAMPRATE  = 1000;       % Eyetracker sampling rate 
@@ -355,6 +334,6 @@ for i = 1:n_fix
 end
 
 for i = 1:n_fix
-    plot(fixtab(i,4), fixtab(i,5),'o','color',[0 0 1],'markersize',fixtab(i,3)/25,'linewidth',1);
+    plot(fixtab(i,4), fixtab(i,5),'o','color',[0 0 1],'markersize',fixtab(i,3)/15,'linewidth',1);
 end
 
