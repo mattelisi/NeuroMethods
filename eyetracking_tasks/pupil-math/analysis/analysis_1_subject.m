@@ -20,13 +20,13 @@ maxRT = 8;
 
 %% import file
 % location of raw data file
-raw_data = '../data/S1.edf';
+raw_data = '../data/S2301.edf';
 
 % system('edf2asc ../data/S1.edf -s -miss -1.0')
 
 % load eye movement file
 ds = edfmex(raw_data); % ,'-miss -1.0'
-save('S1_edfstruct.mat', 'ds');
+save('S2301_edfstruct.mat', 'ds');
 
 % see the content of the data
 ds.FSAMPLE
@@ -39,7 +39,7 @@ find(strcmp({ds.FEVENT.message}, 'EVENT_FixationDot')==1)
 
 % which eye was tracked?
 % 0=left 1=right (add 1 for indexing below)
-eye_tracked = 1 + unique([ds.FEVENT.eye]);
+eye_tracked = 1 + mode([ds.FEVENT.eye]);
 
 % initialize 
 trial_n = NaN;
@@ -82,12 +82,12 @@ for i = 1:length(ds.FEVENT)
            t_fix = int32(ds.FEVENT(i).sttime);
         end
         
-        % fix onset
+        % first number
         if strcmp(sa(1),'EVENT_N1')
            t_N1 = int32(ds.FEVENT(i).sttime);
         end
         
-        % fix onset
+        % second number
         if strcmp(sa(1),'EVENT_N2')
            t_N2 = int32(ds.FEVENT(i).sttime);
            t_resp = t_N2 + 8 * 1000;
@@ -135,6 +135,8 @@ for i = 1:length(ds.FEVENT)
         eye_x(eye_x<0 | eye_x>scr.xres | eye_y<0 | eye_y>scr.yres ) = NaN;
         eye_y(eye_y<0 | eye_y>scr.yres | eye_x<0 | eye_x>scr.xres ) = NaN;
         pupil_size(eye_y<0 | eye_y>scr.yres | eye_x<0 | eye_x>scr.xres ) = NaN;
+        
+        pupil_size(pupil_size==0) = NaN;
         
         % save ecverything into a single structure
         ds2.trial(trial_count).trial_n = trial_n;
@@ -187,12 +189,14 @@ hold on
 plot(ds2.trial(2).timestamp, ds2.trial(2).pupil_size)
 plot(ds2.trial(3).timestamp, ds2.trial(3).pupil_size)
 plot(ds2.trial(4).timestamp, ds2.trial(4).pupil_size)
-ylim([500 , 1000])
+ylim([400 , 1800])
 hold off
 
 %% normalize and average analysis
 
+% create a matrix where to align data from all trials
 pa_matrix = NaN(length(ds2.trial), max([ds2.trial(1:4).timestamp]));
+
 for i = 1:length(ds2.trial)
 
     time = ds2.trial(i).timestamp;
@@ -200,38 +204,85 @@ for i = 1:length(ds2.trial)
     t_0 = ds2.trial(i).t_N1;
     t_1 = ds2.trial(i).t_resp;
     
+    % compute rate of change in pupil size
     pavel = vecvel(pa', 1000, 2);  
     
-    %
-    % plot(time, abs(pavel)); hold on
-    % plot([-4000, 12000],[0.3,0.3]*10^4); hold off
-    pa(abs(pavel) > 0.3*10^4) = NaN;
+    %     Make a plot of rate of change for a single trial
+    %     plot(time, abs(pavel)); hold on
+    %     plot([-4000, 12000],[0.4,0.4]*10^4); hold off
+    
+    % by eyeballing the plots above, I choose 0.4*10^4 as a threshold, and
+    % I change to Nan all values that exceed it
+    pa(abs(pavel) > 0.4*10^4) = NaN;
     pa(pa<650) = NaN;
     
+    % compute average pupil dilation for baseline (before first number, 
+    % corresponding to negative time stamps)
     baseline = nanmean(pa(time<0));
     
+    % select only the same interval for each trial, starting with
+    % presentation of first number
     pa_ok = pa(time>=0 & time<(t_1 - t_0));
-    pa_ok = pa_ok / baseline;
     
+    % normalize by computing proportion change with respect to baseline
+    pa_ok = ((pa_ok / baseline)-1).*100;
+    
+    % save current trials in the matrix
     pa_matrix(i, 1:size(pa_ok,2)) = pa_ok ;
     
 end
 
-
+% compute the averave
 pa_mean = nanmean(pa_matrix);
-pa_mean = movmean(pa_mean,150);
 
+% transform time in seconds
 time_sec = (1:length(pa_mean))/1000;
 
+% make plot
 set(gcf,'color','w');
 hold on
 line(time_sec, pa_matrix,'LineWidth',0.2,'LineStyle','-','color',[0.8 0.8 0.8])
-line([2,2],[-1,2],'LineWidth',0.2,'LineStyle','--');
+line([2,2],[-40,85],'LineWidth',0.2,'LineStyle','--','color',[0.5 0.5 0.5]);
 plot(time_sec, pa_mean,'k','LineWidth',2,'LineStyle','-')
 hold off
 ylim([min(pa_matrix(:)), max(pa_matrix(:))])
 xlim([-0.5, 10])
 xlabel('Time [sec]');
-ylabel('Pupil area [a.u.]');
+ylabel('Pupil area [% change from baseline]');
 
+
+%% alternative plot with standard error:
+
+% Calculating the standard error of the mean (SEM)
+pa_std = nanstd(pa_matrix); % Standard deviation of pa_matrix, ignoring NaNs
+n = sum(~isnan(pa_matrix)); % Count non-NaN entries for each time point
+sem = pa_std ./ sqrt(n); % SEM calculation
+
+% Mean and SEM calculations for plotting
+pa_mean = nanmean(pa_matrix); % Mean of pa_matrix, ignoring NaNs
+pa_mean_smooth = movmean(pa_mean,300); % Moving average of pa_mean for smoothing
+
+% Time vector for plotting
+time_sec = (1:length(pa_mean_smooth))/1000;
+
+% Plotting
+set(gcf,'color','w');
+hold on
+
+%line(time_sec, pa_matrix,'LineWidth',0.2,'LineStyle','-','color',[0.8 0.8 0.8])
+line([2,2],[-40,85],'LineWidth',0.2,'LineStyle','--','color',[0.5 0.5 0.5]);
+
+% Adding the ribbon for SEM
+fill([time_sec, fliplr(time_sec)], [pa_mean_smooth+sem, fliplr(pa_mean_smooth-sem)], ...
+    [0.9 0.9 0.9], 'linestyle', 'none');
+
+% Re-plotting the mean line so it's on top of the ribbon
+plot(time_sec, pa_mean_smooth, 'k', 'LineWidth', 2);
+
+ylim([-20, 40])
+xlim([-0.5, 10])
+xlabel('Time [sec]');
+ylabel('Pupil area [% change from baseline]');
+
+hold off
 
