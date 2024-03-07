@@ -17,14 +17,14 @@ ppd = va2pix(1,scr); % pixel per degree
 
 
 %% import file
-% location of raw data file
-raw_data = '../data/S2.edf';
+% location of raw data file 2300 2301
+raw_data = '../data/S2301.edf';
 
 % system('edf2asc ../data/S1.edf -s -miss -1.0')
 
 % load eye movement file
 ds = edfmex(raw_data); % ,'-miss -1.0'
-save('S2_edfstruct.mat', 'ds');
+save('S2301_edfstruct.mat', 'ds');
 
 % see the content of the data
 ds.FSAMPLE
