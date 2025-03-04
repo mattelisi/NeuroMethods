@@ -20,13 +20,13 @@ ppd = va2pix(1,scr); % pixel per degree
 
 %% import file
 % location of raw data file
-raw_data = '../data/S1.edf';
+raw_data = '../data/S52.edf';
 
 % system('edf2asc ../data/S1.edf -s -miss -1.0')
 
 % load eye movement file
 ds = edfmex(raw_data); % ,'-miss -1.0'
-save('S1_edfstruct.mat', 'ds');
+save('S52_edfstruct.mat', 'ds');
 
 % see the content of the data
 ds.FSAMPLE
@@ -164,7 +164,7 @@ end
 %% plot raw data for 1 image
 
 % select a trial
-t = 2;
+t = 1;
 
 % see image
 if ds2.trial(t).fake_image ==1
@@ -185,7 +185,7 @@ subplot(1,3,3);
 plot(ds2.trial(t).timestamp, XY,'LineWidth', 2)
 
 %% saccade analysis for 1 image
-t = 3;
+t = 1;
 
 % saccade algorithm parameters
 SAMPRATE  = 1000;       % Eyetracker sampling rate 
