@@ -131,14 +131,14 @@ for i = 1:length(ds.FEVENT)
         eye_y(eye_y==100000000 | eye_x==100000000) = NaN;
         pupil_size(eye_y==100000000 | eye_x==100000000) = NaN;
         
-        % remove blinks etc
+        % remove gaze points outside screen etc
         eye_x(eye_x<0 | eye_x>scr.xres | eye_y<0 | eye_y>scr.yres ) = NaN;
         eye_y(eye_y<0 | eye_y>scr.yres | eye_x<0 | eye_x>scr.xres ) = NaN;
         pupil_size(eye_y<0 | eye_y>scr.yres | eye_x<0 | eye_x>scr.xres ) = NaN;
         
         pupil_size(pupil_size==0) = NaN;
         
-        % save ecverything into a single structure
+        % save everything into a single structure
         ds2.trial(trial_count).trial_n = trial_n;
         ds2.trial(trial_count).t_start = t_start;
         ds2.trial(trial_count).t_end = t_end;
