@@ -223,7 +223,8 @@ for t = 1:n_trials
     end
 
     Eyelink('message', 'TRIAL_START %d', t);
-    Eyelink('message', 'SYNCTIME');		% zero-plot time for EDFVIEW
+    
+    % Eyelink('message', 'SYNCTIME');		% zero-plot time for EDFVIEW
 
     % draw trial information on EyeLink operator screen
     Eyelink('command','draw_cross %d %d', scr.xCenter, scr.yCenter);

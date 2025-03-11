@@ -20,13 +20,13 @@ ppd = va2pix(1,scr); % pixel per degree
 
 %% import file
 % location of raw data file
-raw_data = '../data/S52.edf';
+raw_data = '../data/S51.edf';
 
 % system('edf2asc ../data/S1.edf -s -miss -1.0')
 
 % load eye movement file
 ds = edfmex(raw_data); % ,'-miss -1.0'
-save('S52_edfstruct.mat', 'ds');
+save('S51_edfstruct.mat', 'ds');
 
 % see the content of the data
 ds.FSAMPLE
@@ -37,7 +37,7 @@ find(strcmp({ds.FEVENT.message}, 'EVENT_FixationDot')==1)
 
 sum(strcmp({ds.FEVENT.message}, 'EVENT_FixationDot'))
 
-ds.FEVENT(62).message
+ds.FEVENT(527).message
 
 %% prepare data
 
@@ -45,7 +45,7 @@ ds.FEVENT(62).message
 % 0=left 1=right (add 1 for indexing below)
 eye_tracked = 1 + mode([ds.FEVENT.eye]);
 
-scatter(ds.FSAMPLE.gx(2,:),ds.FSAMPLE.gy(2,:))
+scatter(ds.FSAMPLE.gx(eye_tracked,:),ds.FSAMPLE.gy(eye_tracked,:))
 xlim([0 scr.xres])
 ylim([0 scr.yres])
 

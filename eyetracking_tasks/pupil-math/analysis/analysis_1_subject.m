@@ -207,9 +207,9 @@ for i = 1:length(ds2.trial)
     % compute rate of change in pupil size
     pavel = vecvel(pa', 1000, 2);  
     
-    %     Make a plot of rate of change for a single trial
-    %     plot(time, abs(pavel)); hold on
-    %     plot([-4000, 12000],[0.4,0.4]*10^4); hold off
+        % Make a plot of rate of change for a single trial
+    %    plot(time, abs(pavel)); hold on
+    %    plot([-4000, 12000],[0.4,0.4]*10^4); hold off
     
     % by eyeballing the plots above, I choose 0.4*10^4 as a threshold, and
     % I change to Nan all values that exceed it
